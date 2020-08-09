@@ -35,7 +35,8 @@
 <body>
 <div class="container-contact100">
     <div class="wrap-contact100">
-        <form class="contact100-form validate-form" enctype="multipart/form-data" method="post">
+        <form class="contact100-form validate-form" enctype="multipart/form-data" method="post"
+              action="{% url 'home' %}">
             <span class="contact100-form-title">
             Input Your CSV Here
             </span>
@@ -50,12 +51,11 @@
                 <span class="focus-input100"></span>
             </div>
             <div class="wrap-input100 input100-select">
-                <span class="label-input100">Needed Services</span>
+                <span class="label-input100">Service</span>
                 <div>
-                    <select class="selection-2" name="service">
-                        <option>Choose Services</option>
-                        <option>Brief Report</option>
-                        <option>Enhanced Report</option>
+                    <select required class="selection-2" name="service">
+                        <option value="brief">Brief Report</option>
+                        <option value="enhanced">Enhanced Report</option>
                     </select>
                 </div>
                 <span class="focus-input100"></span>
@@ -63,7 +63,7 @@
 
             <div class="wrap-input100 validate-input" data-validate="Message is required">
                 <span class="label-input100">Input File</span>
-                <input type="file" name="fileCSV" id="csvFile">
+                <input required type="file" name="fileCSV" id="csvFile">
             </div>
             <div class="container-contact100-form-btn">
                 <div class="wrap-contact100-form-btn">
