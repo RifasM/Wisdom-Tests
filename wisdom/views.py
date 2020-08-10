@@ -79,3 +79,7 @@ def home(request):
         print(student)
 
     return render(request, "index.html")
+
+
+def report(request):
+    return render(request, "report.html")

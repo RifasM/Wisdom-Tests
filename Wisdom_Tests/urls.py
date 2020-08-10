@@ -20,5 +20,6 @@ from wisdom import views
 
 urlpatterns = [
     path('', views.home, name="home"),
+    path('report', views.report, name="report"),
     path('admin/', admin.site.urls),
 ]
