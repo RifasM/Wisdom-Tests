@@ -25,7 +25,6 @@
         .fancy-card {
             width: inherit;
             height: 250px;
-            background: #fff linear-gradient(#f8f8f8, #fff);
             box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
             border-radius: 6px;
             overflow: hidden;
@@ -41,14 +40,10 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(#dE685E, #EE786E);
+
             transition: width 0.4s;
             overflow: hidden;
             z-index: 2;
-        }
-
-        .fancy-card.green .additional {
-            background: linear-gradient(#92bCa6, #A2CCB6);
         }
 
 
@@ -183,7 +178,7 @@
 </head>
 <body>
 <div class="row">
-    <div class="col-md-11 fancy-card" style="background: linear-gradient(#dE685E, #EE786E); width: 90%">
+    <div class="col-md-11 fancy-card" style="background: #dE685E; width: 100%">
         <div class="additional">
             <div class="user-card">
 
@@ -271,7 +266,7 @@
 <div class="row" style="margin-left: 5%;">
 
     <div class="card col-md-5">
-        <div class="about">
+        <div>
             <h3>Time Spent per question</h3>
 
         </div>
@@ -280,7 +275,7 @@
     </div>
 
     <div class="card col-md-5">
-        <div class="about">
+        <div>
             <h3>Time Spent as a function of Time</h3>
 
         </div>
@@ -291,7 +286,7 @@
 
 <div class="row" style="margin-left: 5%;">
     <div class="card col-md-5">
-        <div class="about">
+        <div>
             <h3>Attempts</h3>
 
         </div>
@@ -300,7 +295,7 @@
     </div>
 
     <div class="card col-md-5">
-        <div class="about">
+        <div>
             <h3>Accuracy</h3>
 
         </div>
@@ -313,7 +308,7 @@
 <div class="row" style="margin-left: 5%;">
 
     <div class="card col-md-5">
-        <div class="about">
+        <div>
             <h3>Overall</h3>
 
         </div>

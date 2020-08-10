@@ -1,8 +1,15 @@
 import csv
+import os
+import zipfile
 from io import StringIO
 
+import pdfkit
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.loader import get_template
+
+from Wisdom_Tests.settings import MEDIA_ROOT
 
 
 def home(request):
@@ -77,7 +84,36 @@ def home(request):
                 student[row[2]]["total_time"] += int(row[12])
                 student[row[2]]["total_score"] += int(row[19])
 
-        return render(request, "report.html", student.get("32030938"))
+        for person in student:
+            template = get_template("report.html")
+            html = template.render(student[person])
+
+            if not os.path.isdir(os.path.join(MEDIA_ROOT, "\\temp\\")):
+                os.mkdir(os.path.join("\\temp\\"))
+
+            pdfkit.from_string(
+                html, os.path.join(os.path.join(MEDIA_ROOT,
+                                                "\\temp\\" + student[person]["student_num"] + ".pdf")))
+
+        s = StringIO()
+
+        zf = zipfile.ZipFile(s)
+
+        for path in os.listdir(os.path.join(MEDIA_ROOT, "\\temp\\")):
+            fdir, fname = os.path.split(path)
+            zip_path = os.path.join(MEDIA_ROOT, "\\temp\\", fname)
+
+            zf.write(path, zip_path)
+
+        zf.close()
+
+        resp = HttpResponse(s.getvalue(), mimetype="application/x-zip-compressed")
+
+        resp['Content-Disposition'] = 'attachment; filename=report.zip'
+
+        return resp
+
+        # return render(request, "report.html", student.get("32030938"))
     return render(request, "index.html")
 
 
