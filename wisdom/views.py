@@ -7,7 +7,6 @@ from django.shortcuts import render
 
 def home(request):
     if request.method == "POST":
-        q_count = request.POST["q_count"]
         email = request.POST["email"]
         service_type = request.POST["service"]
 
@@ -19,18 +18,6 @@ def home(request):
         data_set = csv_file.read().decode("UTF-8")
         io_string = StringIO(data_set)
         next(io_string)
-
-        cols = ['Student No ', 'Name of Candidate',
-                'Registration', 'Grade ', 'Gender',
-                'Name of school ', 'Date of Birth ',
-                'City of Residence', 'Date and time of test',
-                'Country of Residence', 'Extra time assistance',
-                'Question No.', 'Time Spent on question (sec)',
-                'Score if correct', 'Score if incorrect',
-                'Attempt status ', 'What you marked',
-                'Correct Answer',
-                'Outcome (Correct/Incorrect/Not Attempted)',
-                'Your score']
 
         student = {}
 
@@ -61,7 +48,14 @@ def home(request):
                             "outcome": row[18],
                             "score": row[19]
                         }
-                    ]
+                    ],
+                    "attempts": 1 if str(row[15]).lower() == "attempted" else 0,
+                    "skips": 1 if str(row[15]).lower() == "unattempted" else 0,
+                    "performance_correct": 1 if str(row[18]).lower() == "correct" else 0,
+                    "performance_incorrect": 1 if str(row[18]).lower() == "incorrect" else 0,
+                    "performance_unattempted": 1 if str(row[18]).lower() == "unattempted" else 0,
+                    "total_time": int(row[12]),
+                    "total_score": int(row[19]),
                 }
             else:
                 student[row[2]].get("questions").append({
@@ -75,6 +69,13 @@ def home(request):
                     "outcome": row[18],
                     "score": row[19]
                 })
+                student[row[2]]["attempts"] += 1 if str(row[15]).lower() == "attempted" else 0
+                student[row[2]]["skips"] += 1 if str(row[15]).lower() == "unattempted" else 0
+                student[row[2]]["performance_correct"] += 1 if str(row[18]).lower() == "correct" else 0
+                student[row[2]]["performance_incorrect"] += 1 if str(row[18]).lower() == "incorrect" else 0
+                student[row[2]]["performance_unattempted"] += 1 if str(row[18]).lower() == "unattempted" else 0
+                student[row[2]]["total_time"] += int(row[12])
+                student[row[2]]["total_score"] += int(row[19])
 
         return render(request, "report.html", student.get("32030938"))
     return render(request, "index.html")
