@@ -76,8 +76,7 @@ def home(request):
                     "score": row[19]
                 })
 
-        print(student)
-
+        return render(request, "report.html", student.get("32030938"))
     return render(request, "index.html")
 
 

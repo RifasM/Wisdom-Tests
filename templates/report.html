@@ -1,597 +1,595 @@
-<!doctype html>
-<html lang="en">
-{% load static %}
+<!DOCTYPE html>
+<html lang='en' class=''>
 <head>
+    <meta charset='UTF-8'>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://colorlib.com//polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="https://colorlib.com//polygon/concept/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="stylesheet"
-          href="https://colorlib.com//polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <link rel="stylesheet"
-          href="https://colorlib.com//polygon/concept/assets/vendor/charts/chartist-bundle/chartist.css">
-    <link rel="stylesheet" href="https://colorlib.com//polygon/concept/assets/vendor/charts/morris-bundle/morris.css">
-    <link rel="stylesheet"
-          href="https://colorlib.com//polygon/concept/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://colorlib.com//polygon/concept/assets/vendor/charts/c3charts/c3.css">
-    <link rel="stylesheet"
-          href="https://colorlib.com//polygon/concept/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
-    <title>Student Report</title>
+    <style class="cp-pen-styles">
+        @import url('https://fonts.googleapis.com/css?family=Abel');
+
+        html, body {
+            background: #FCEEB5;
+            font-family: Abel, Arial, Verdana, sans-serif;
+        }
+
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+        }
+
+        .card {
+            width: inherit;
+            height: 250px;
+            background-color: #fff;
+            background: linear-gradient(#f8f8f8, #fff);
+            box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            margin: 1.5rem;
+        }
+
+        .card h1 {
+            text-align: center;
+        }
+
+        .card .additional {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#dE685E, #EE786E);
+            transition: width 0.4s;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .card.green .additional {
+            background: linear-gradient(#92bCa6, #A2CCB6);
+        }
+
+
+        .card:hover .additional {
+            width: 100%;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .card .additional .user-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            float: left;
+        }
+
+        .card .additional .user-card::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 10%;
+            right: -2px;
+            height: 80%;
+            border-left: 2px solid rgba(0, 0, 0, 0.025);
+            */
+        }
+
+        .card .additional .user-card .level,
+        .card .additional .user-card .points {
+            top: 15%;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.75em;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 0.125rem 0.75rem;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .card .additional .user-card .points {
+            top: 85%;
+        }
+
+        .card .additional .user-card svg {
+            top: 50%;
+        }
+
+        .card .additional .more-info {
+            width: 100%;
+            float: left;
+            position: absolute;
+            height: 100%;
+        }
+
+        .card .additional .more-info h1 {
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        .card.green .additional .more-info h1 {
+            color: #224C36;
+        }
+
+        .card .additional .coords {
+            margin: 0 1rem;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .card.green .additional .coords {
+            color: #325C46;
+        }
+
+        .card .additional .coords span + span {
+            float: right;
+        }
+
+        .card .additional .stats {
+            margin-top: 5%;
+            float: left;
+            font-size: 2rem;
+            display: flex;
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            top: auto;
+            color: #fff;
+        }
+
+        .card.green .additional .stats {
+            color: #325C46;
+        }
+
+        .card .additional .stats > div {
+            flex: 1;
+            text-align: center;
+        }
+
+        .card .additional .stats i {
+            display: block;
+        }
+
+        .card .additional .stats div.title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card .additional .stats div.value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.5rem;
+        }
+
+        .card .additional .stats div.value.infinity {
+            font-size: 2.5rem;
+        }
+
+        .card .general {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+            box-sizing: border-box;
+            padding: 1rem;
+            padding-top: 0;
+        }
+
+        .card .general .more {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.9em;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+        .table .table {
+            background-color: transparent;
+        }
+
+        .table-sm th,
+        .table-sm td {
+            padding: 0.3rem;
+        }
+
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+        .table-borderless th,
+        .table-borderless td,
+        .table-borderless thead th,
+        .table-borderless tbody + tbody {
+            border: 0;
+        }
+
+        .box-card {
+            margin: 1.5rem;
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            color: #000;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: .25rem
+        }
+
+
+    </style>
 </head>
 <body>
+<div class="row">
+    <div class="card col-md-12">
+        <div class="additional">
+            <div class="user-card">
 
-
-<div class="dashboard-main-wrapper">
-
-    <div class="dashboard-wrapper">
-        <div class="dashboard-ecommerce">
-            <div class="container-fluid dashboard-content ">
-
-
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                            <h2 class="pageheader-title">E-commerce Dashboard Template </h2>
-                            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
-                                mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
-                        </div>
-                    </div>
+                <div class="points center">
+                    {{ dob }}
                 </div>
+                <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img"
+                     aria-labelledby="title desc" class="center">
 
+                    <style>
+                        .skin {
+                            fill: #eab38f;
+                        }
 
-                <div class="ecommerce-widget">
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Total Revenue</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">$12099</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
-                                    </div>
-                                </div>
-                                <div id="sparkline-revenue"></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Affiliate Revenue</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">$12099</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
-                                    </div>
-                                </div>
-                                <div id="sparkline-revenue2"></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Refunds</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">0.00</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
-                                        <span>N/A</span>
-                                    </div>
-                                </div>
-                                <div id="sparkline-revenue3"></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Avg. Revenue Per User</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">$28000</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
-                                        <span>-2.00%</span>
-                                    </div>
-                                </div>
-                                <div id="sparkline-revenue4"></div>
-                            </div>
-                        </div>
+                        .eyes {
+                            fill: #1f1f1f;
+                        }
+
+                        .hair {
+                            fill: #2f1b0d;
+                        }
+
+                        .line {
+                            fill: none;
+                            stroke: #2f1b0d;
+                            stroke-width: 2px;
+                        }
+                    </style>
+                    <defs>
+                        <clipPath id="scene">
+                            <circle cx="125" cy="125" r="115"/>
+                        </clipPath>
+                        <clipPath id="lips">
+                            <path d="M 106,132 C 113,127 125,128 125,132 125,128 137,127 144,132 141,142  134,146  125,146  116,146 109,142 106,132 Z"/>
+                        </clipPath>
+                    </defs>
+                    <circle cx="125" cy="125" r="120" fill="rgba(0,0,0,0.15)"/>
+                    <g stroke="none" stroke-width="0" clip-path="url(#scene)">
+                        <rect x="0" y="0" width="250" height="250" fill="#b0d2e5"/>
+                        <g id="head">
+                            <path fill="none" stroke="#111111" stroke-width="2" d="M 68,103 83,103.5"/>
+                            <path class="hair"
+                                  d="M 67,90 67,169 78,164 89,169 100,164 112,169 125,164 138,169 150,164 161,169 172,164 183,169 183,90 Z"/>
+                            <circle cx="125" cy="100" r="55" class="skin"/>
+                            <ellipse cx="102" cy="107" rx="5" ry="5" class="eyes" id="eye-left"/>
+                            <ellipse cx="148" cy="107" rx="5" ry="5" class="eyes" id="eye-right"/>
+                            <rect x="119" y="140" width="12" height="40" class="skin"/>
+                            <path class="line eyebrow" d="M 90,98 C 93,90 103,89 110,94" id="eyebrow-left"/>
+                            <path class="line eyebrow" d="M 160,98 C 157,90 147,89 140,94" id="eyebrow-right"/>
+                            <path stroke="#111111" stroke-width="4" d="M 68,103 83,102.5"/>
+                            <path stroke="#111111" stroke-width="4" d="M 182,103 167,102.5"/>
+                            <path stroke="#050505" stroke-width="3" fill="none" d="M 119,102 C 123,99 127,99 131,102"/>
+                            <path fill="#050505" d="M 92,97 C 85,97 79,98 80,101 81,104 84,104 85,102"/>
+                            <path fill="#050505" d="M 158,97 C 165,97 171,98 170,101 169,104 166,104 165,102"/>
+                            <path stroke="#050505" stroke-width="3" fill="rgba(240,240,255,0.4)"
+                                  d="M 119,102 C 118,111 115,119 98,117 85,115 84,108 84,104 84,97 94,96 105,97 112,98 117,98 119,102 Z"/>
+                            <path stroke="#050505" stroke-width="3" fill="rgba(240,240,255,0.4)"
+                                  d="M 131,102 C 132,111 135,119 152,117 165,115 166,108 166,104 166,97 156,96 145,97 138,98 133,98 131,102 Z"/>
+                            <path class="hair"
+                                  d="M 60,109 C 59,39 118,40 129,40 139,40 187,43 189,99 135,98 115,67 115,67 115,67 108,90 80,109 86,101 91,92 92,87 85,99 65,108 60,109"/>
+                            <path id="mouth" fill="#d73e3e"
+                                  d="M 106,132 C 113,127 125,128 125,132 125,128 137,127 144,132 141,142  134,146  125,146  116,146 109,142 106,132 Z"/>
+                            <path id="smile" fill="white"
+                                  d="M125,141 C 140,141 143,132 143,132 143,132 125,133 125,133 125,133 106.5,132 106.5,132 106.5,132 110,141 125,141 Z"
+                                  clip-path="url(#lips)"/>
+                        </g>
+                        <g id="shirt">
+                            <path fill="#8665c2"
+                                  d="M 132,170 C 146,170 154,200 154,200 154,200 158,250 158,250 158,250 92,250 92,250 92,250 96,200 96,200 96,200 104,170 118,170 118,170 125,172 125,172 125,172 132,170 132,170 Z"/>
+                            <path id="arm-left" class="arm" stroke="#8665c2" fill="none" stroke-width="14"
+                                  d="M 118,178 C 94,179 66,220 65,254"/>
+                            <path id="arm-right" class="arm" stroke="#8665c2" fill="none" stroke-width="14"
+                                  d="M 132,178 C 156,179 184,220 185,254"/>
+                            <path fill="white" d="M 117,166 C 117,166 125,172 125,172 125,182 115,182 109,170 Z"/>
+                            <path fill="white" d="M 133,166 C 133,166 125,172 125,172 125,182 135,182 141,170 Z"/>
+                            <circle cx="125" cy="188" r="4" fill="#5a487b"/>
+                            <circle cx="125" cy="202" r="4" fill="#5a487b"/>
+                            <circle cx="125" cy="216" r="4" fill="#5a487b"/>
+                            <circle cx="125" cy="230" r="4" fill="#5a487b"/>
+                            <circle cx="125" cy="244" r="4" fill="#5a487b"/>
+                            <path stroke="#daa37f" stroke-width="1" class="skin hand" id="hand-left"
+                                  d="M 51,270 C 46,263 60,243 63,246 65,247 66,248 61,255 72,243 76,238 79,240 82,243 72,254 69,257 72,254 82,241 86,244 89,247 75,261 73,263 77,258 84,251 86,253 89,256 70,287 59,278"/>
+                            <path stroke="#daa37f" stroke-width="1" class="skin hand" id="hand-right"
+                                  d="M 199,270 C 204,263 190,243 187,246 185,247 184,248 189,255 178,243 174,238 171,240 168,243 178,254 181,257 178,254 168,241 164,244 161,247 175,261 177,263 173,258 166,251 164,253 161,256 180,287 191,278"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="more-info">
+                <h1>{{ name }}</h1>
+                <div class="coords">
+                    <span>Grade: {{ grade }}</span>
+                    <span>Test Date: {{ test_dt }}</span>
+                </div>
+                <div class="coords">
+                    <span>School: {{ school }}</span>
+                    <span>{{ city }}, {{ country }}</span>
+                </div>
+                <div class="stats">
+                    <div>
+                        <div class="title">Registration</div>
+                        <i class="fa fa-trophy"></i>
+                        <div class="value">{{ registration }}</div>
                     </div>
-                    <div class="row">
-
-
-                        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header">Recent Orders</h5>
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="bg-light">
-                                            <tr class="border-0">
-                                                <th class="border-0">#</th>
-                                                <th class="border-0">Image</th>
-                                                <th class="border-0">Product Name</th>
-                                                <th class="border-0">Product Id</th>
-                                                <th class="border-0">Quantity</th>
-                                                <th class="border-0">Price</th>
-                                                <th class="border-0">Order Time</th>
-                                                <th class="border-0">Customer</th>
-                                                <th class="border-0">Status</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="assets/images/product-pic.jpg"
-                                                                             alt="user" class="rounded" width="45">
-                                                    </div>
-                                                </td>
-                                                <td>Product #1</td>
-                                                <td>id000001</td>
-                                                <td>20</td>
-                                                <td>$80.00</td>
-                                                <td>27-08-2018 01:22:12</td>
-                                                <td>Patricia J. King</td>
-                                                <td><span class="badge-dot badge-brand mr-1"></span>InTransit</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="assets/images/product-pic-2.jpg"
-                                                                             alt="user" class="rounded" width="45">
-                                                    </div>
-                                                </td>
-                                                <td>Product #2</td>
-                                                <td>id000002</td>
-                                                <td>12</td>
-                                                <td>$180.00</td>
-                                                <td>25-08-2018 21:12:56</td>
-                                                <td>Rachel J. Wicker</td>
-                                                <td><span class="badge-dot badge-success mr-1"></span>Delivered</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="assets/images/product-pic-3.jpg"
-                                                                             alt="user" class="rounded" width="45">
-                                                    </div>
-                                                </td>
-                                                <td>Product #3</td>
-                                                <td>id000003</td>
-                                                <td>23</td>
-                                                <td>$820.00</td>
-                                                <td>24-08-2018 14:12:77</td>
-                                                <td>Michael K. Ledford</td>
-                                                <td><span class="badge-dot badge-success mr-1"></span>Delivered</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="assets/images/product-pic-4.jpg"
-                                                                             alt="user" class="rounded" width="45">
-                                                    </div>
-                                                </td>
-                                                <td>Product #4</td>
-                                                <td>id000004</td>
-                                                <td>34</td>
-                                                <td>$340.00</td>
-                                                <td>23-08-2018 09:12:35</td>
-                                                <td>Michael K. Ledford</td>
-                                                <td><span class="badge-dot badge-success mr-1"></span>Delivered</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View
-                                                    Details</a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header">Customer Acquisition</h5>
-                                <div class="card-body">
-                                    <div class="ct-chart ct-golden-section" style="height: 354px;"></div>
-                                    <div class="text-center">
-<span class="legend-item mr-2">
-<span class="fa-xs text-primary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
-<span class="legend-text">Returning</span>
-</span>
-                                        <span class="legend-item mr-2">
-<span class="fa-xs text-secondary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
-<span class="legend-text">First Time</span>
-</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
+                    <div>
+                        <div class="title">Gender</div>
+                        <i class="fa fa-gamepad"></i>
+                        <div class="value">{{ gender }}</div>
                     </div>
-                    <div class="row">
-
-
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header"> Product Category</h5>
-                                <div class="card-body">
-                                    <div class="ct-chart-category ct-golden-section" style="height: 315px;"></div>
-                                    <div class="text-center m-t-40">
-<span class="legend-item mr-3">
-<span class="fa-xs text-primary mr-1 legend-tile"><i class="fa fa-fw fa-square-full "></i></span><span
-        class="legend-text">Man</span>
-</span>
-                                        <span class="legend-item mr-3">
-<span class="fa-xs text-secondary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
-<span class="legend-text">Woman</span>
-</span>
-                                        <span class="legend-item mr-3">
-<span class="fa-xs text-info mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
-<span class="legend-text">Accessories</span>
-</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="card">
-                                <div class="card-header">
-
-                                    <h5 class="mb-0"> Product Sales</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="ct-chart-product ct-golden-section"></div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
-
-
-                            <div class="card">
-                                <h5 class="card-header">Top Performing Campaigns</h5>
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table no-wrap p-table">
-                                            <thead class="bg-light">
-                                            <tr class="border-0">
-                                                <th class="border-0">Campaign</th>
-                                                <th class="border-0">Visits</th>
-                                                <th class="border-0">Revenue</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>Campaign#1</td>
-                                                <td>98,789</td>
-                                                <td>$4563</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#2</td>
-                                                <td>2,789</td>
-                                                <td>$325</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#3</td>
-                                                <td>1,459</td>
-                                                <td>$225</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#4</td>
-                                                <td>5,035</td>
-                                                <td>$856</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#5</td>
-                                                <td>10,000</td>
-                                                <td>$1000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#5</td>
-                                                <td>10,000</td>
-                                                <td>$1000</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">
-                                                    <a href="#" class="btn btn-outline-light float-right">Details</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
+                    <div>
+                        <div class="title">Assistance Taken</div>
+                        <i class="fa fa-group"></i>
+                        <div class="value">{{ assistance }}</div>
                     </div>
-                    <div class="row">
-
-
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                            <div class="card border-3 border-top border-top-primary">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Sales</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">$12099</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5.86%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                            <div class="card border-3 border-top border-top-primary">
-                                <div class="card-body">
-                                    <h5 class="text-muted">New Customer</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">1245</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">10%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                            <div class="card border-3 border-top border-top-primary">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Visitor</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">13000</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                            <div class="card border-3 border-top border-top-primary">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Total Orders</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">1340</h1>
-                                    </div>
-                                    <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
-                                        <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light "><i
-                                                class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1">4%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="row">
-
-
-                        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header">Revenue by Category</h5>
-                                <div class="card-body">
-                                    <div id="c3chart_category" style="height: 420px;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header"> Total Revenue</h5>
-                                <div class="card-body">
-                                    <div id="morris_totalrevenue"></div>
-                                </div>
-                                <div class="card-footer">
-                                    <p class="display-7 font-weight-bold"><span class="text-primary d-inline-block">$26,000</span><span
-                                            class="text-success float-right">+9.45%</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-12">
-
-
-                            <div class="card">
-                                <h5 class="card-header"> Sales By Social Source</h5>
-                                <div class="card-body p-0">
-                                    <ul class="social-sales list-group list-group-flush">
-                                        <li class="list-group-item social-sales-content"><span
-                                                class="social-sales-icon-circle facebook-bgcolor mr-2"><i
-                                                class="fab fa-facebook-f"></i></span><span class="social-sales-name">Facebook</span><span
-                                                class="social-sales-count text-dark">120 Sales</span>
-                                        </li>
-                                        <li class="list-group-item social-sales-content"><span
-                                                class="social-sales-icon-circle twitter-bgcolor mr-2"><i
-                                                class="fab fa-twitter"></i></span><span class="social-sales-name">Twitter</span><span
-                                                class="social-sales-count text-dark">99 Sales</span>
-                                        </li>
-                                        <li class="list-group-item social-sales-content"><span
-                                                class="social-sales-icon-circle instagram-bgcolor mr-2"><i
-                                                class="fab fa-instagram"></i></span><span class="social-sales-name">Instagram</span><span
-                                                class="social-sales-count text-dark">76 Sales</span>
-                                        </li>
-                                        <li class="list-group-item social-sales-content"><span
-                                                class="social-sales-icon-circle pinterest-bgcolor mr-2"><i
-                                                class="fab fa-pinterest-p"></i></span><span class="social-sales-name">Pinterest</span><span
-                                                class="social-sales-count text-dark">56 Sales</span>
-                                        </li>
-                                        <li class="list-group-item social-sales-content"><span
-                                                class="social-sales-icon-circle googleplus-bgcolor mr-2"><i
-                                                class="fab fa-google-plus-g"></i></span><span class="social-sales-name">Google Plus</span><span
-                                                class="social-sales-count text-dark">36 Sales</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="#" class="btn-primary-link">View Details</a>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-
-
-                            <div class="card">
-                                <h5 class="card-header"> Sales By Traffic Source</h5>
-                                <div class="card-body p-0">
-                                    <ul class="traffic-sales list-group list-group-flush">
-                                        <li class="traffic-sales-content list-group-item "><span
-                                                class="traffic-sales-name">Direct</span><span
-                                                class="traffic-sales-amount">$4000.00 <span
-                                                class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
-                                        </li>
-                                        <li class="traffic-sales-content list-group-item"><span
-                                                class="traffic-sales-name">Search<span class="traffic-sales-amount">$3123.00 <span
-                                                class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
-</span>
-                                        </li>
-                                        <li class="traffic-sales-content list-group-item"><span
-                                                class="traffic-sales-name">Social<span class="traffic-sales-amount ">$3099.00 <span
-                                                class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
-</span>
-                                        </li>
-                                        <li class="traffic-sales-content list-group-item"><span
-                                                class="traffic-sales-name">Referrals<span class="traffic-sales-amount ">$2220.00 <span
-                                                class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i
-                                                class="fa fa-fw fa-arrow-down"></i></span><span
-                                                class="ml-1 text-danger">4.02%</span></span>
-</span>
-                                        </li>
-                                        <li class="traffic-sales-content list-group-item "><span
-                                                class="traffic-sales-name">Email<span class="traffic-sales-amount">$1567.00 <span
-                                                class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i
-                                                class="fa fa-fw fa-arrow-down"></i></span><span
-                                                class="ml-1 text-danger">3.86%</span></span>
-</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="#" class="btn-primary-link">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header">Sales By Country Traffic Source</h5>
-                                <div class="card-body p-0">
-                                    <ul class="country-sales list-group list-group-flush">
-                                        <li class="country-sales-content list-group-item"><span class="mr-2"><i
-                                                class="flag-icon flag-icon-us" title="us" id="us"></i> </span>
-                                            <span class="">United States</span><span
-                                                    class="float-right text-dark">78%</span>
-                                        </li>
-                                        <li class="list-group-item country-sales-content"><span class="mr-2"><i
-                                                class="flag-icon flag-icon-ca" title="ca" id="ca"></i></span><span
-                                                class="">Canada</span><span class="float-right text-dark">7%</span>
-                                        </li>
-                                        <li class="list-group-item country-sales-content"><span class="mr-2"><i
-                                                class="flag-icon flag-icon-ru" title="ru" id="ru"></i></span><span
-                                                class="">Russia</span><span class="float-right text-dark">4%</span>
-                                        </li>
-                                        <li class="list-group-item country-sales-content"><span class=" mr-2"><i
-                                                class="flag-icon flag-icon-in" title="in" id="in"></i></span><span
-                                                class="">India</span><span class="float-right text-dark">12%</span>
-                                        </li>
-                                        <li class="list-group-item country-sales-content"><span class=" mr-2"><i
-                                                class="flag-icon flag-icon-fr" title="fr" id="fr"></i></span><span
-                                                class="">France</span><span class="float-right text-dark">16%</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="#" class="btn-primary-link">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-
-
+                    <div>
+                        <div class="title">Total Score</div>
+                        <i class="fa fa-coffee"></i>
+                        <div class="value infinity">{{ total }}</div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <div class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        Copyright © 2018 Wisdom Tests. All rights reserved.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
+</div>
 
+<div class="row">
+    <div class="box-card col-md-11" style="text-align: center;">
+        <div class="additional">
 
+            <div class="more-info">
+                <h1>Test Details</h1>
+                <table class="table table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Question Number</th>
+                        <th scope="col">Time Spent</th>
+                        <th scope="col">Score (if correct)</th>
+                        <th scope="col">Score (if wrong)</th>
+                        <th scope="col">Attempt Status</th>
+                        <th scope="col">Your Answer</th>
+                        <th scope="col">Correct Answer</th>
+                        <th scope="col">Outcome</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for q in questions %}
+                        <tr>
+                            <th scope="row">{{ q.qno }}</th>
+                            <td>{{ q.time }}</td>
+                            <td>{{ q.correct_score }}</td>
+                            <td>{{ q.incorrect_score }}</td>
+                            <td>{{ q.status }}</td>
+                            <td>{{ q.answer_marked }}</td>
+                            <td>{{ q.answer_correct }}</td>
+                            <td>{{ q.outcome }}</td>
+                            <td>{{ q.score }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="box-card col-md-6">
+        <!-- Custom information -->
+        <div class="about">
+            <h3>Chart.js</h3>
+            <p class="lead">Radar chart, shadows, custom hover</p>
+
+            <!-- Tooltip placeholder -->
+            <div id="tooltip" class="tooltip-placeholder"></div>
+        </div>
+
+        <!-- Canvas for Chart.js -->
+        <canvas id="canvas" width="300" height="200"></canvas>
+    </div>
 </div>
 
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/jquery/jquery-3.3.1.min.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js'></script>
+<script>var canvas = document.getElementById("canvas");
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/bootstrap/js/bootstrap.bundle.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+var gradientBlue = canvas.getContext('2d').createLinearGradient(0, 0, 0, 150);
+gradientBlue.addColorStop(0, 'rgba(85, 85, 255, 0.9)');
+gradientBlue.addColorStop(1, 'rgba(151, 135, 255, 0.8)');
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/slimscroll/jquery.slimscroll.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+var gradientHoverBlue = canvas.getContext('2d').createLinearGradient(0, 0, 0, 150);
+gradientHoverBlue.addColorStop(0, 'rgba(65, 65, 255, 1)');
+gradientHoverBlue.addColorStop(1, 'rgba(131, 125, 255, 1)');
 
-<script src="https://colorlib.com//polygon/concept/assets/libs/js/main-js.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+var gradientRed = canvas.getContext('2d').createLinearGradient(0, 0, 0, 150);
+gradientRed.addColorStop(0, 'rgba(255, 85, 184, 0.9)');
+gradientRed.addColorStop(1, 'rgba(255, 135, 135, 0.8)');
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/chartist-bundle/chartist.min.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+var gradientHoverRed = canvas.getContext('2d').createLinearGradient(0, 0, 0, 150);
+gradientHoverRed.addColorStop(0, 'rgba(255, 65, 164, 1)');
+gradientHoverRed.addColorStop(1, 'rgba(255, 115, 115, 1)');
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/sparkline/jquery.sparkline.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+var redArea = null;
+var blueArea = null;
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/morris-bundle/raphael.min.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/morris-bundle/morris.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+var shadowed = {
+    beforeDatasetsDraw: function (chart, options) {
+        chart.ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+        chart.ctx.shadowBlur = 40;
+    },
+    afterDatasetsDraw: function (chart, options) {
+        chart.ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+        chart.ctx.shadowBlur = 0;
+    }
+};
 
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/c3charts/c3.min.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/c3charts/d3-5.4.0.min.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/c3charts/C3chartjs.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
-<script src="https://colorlib.com//polygon/concept/assets/vendor/charts/chartist-bundle/chartist.min.js"
-        type="6682f852452944f9f2411d7b-text/javascript"></script>
+Chart.plugins.register({
+    afterEvent: function (chart, e) {
+        // Hardcoded hover areas
 
-<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js"
-        data-cf-settings="6682f852452944f9f2411d7b-|49" defer=""></script>
+        // Red chart
+        chart.ctx.beginPath();
+        chart.ctx.moveTo(91, 69);
+        chart.ctx.lineTo(152, 80);
+        chart.ctx.lineTo(192, 75);
+        chart.ctx.lineTo(213, 138);
+        chart.ctx.lineTo(148, 168);
+        chart.ctx.lineTo(105, 126);
+        chart.ctx.fill();
+        chart.ctx.closePath();
+
+        if (chart.ctx.isPointInPath(e.x, e.y)) {
+            var dataset = window.chart.data.datasets[0];
+            dataset.backgroundColor = gradientHoverRed;
+            window.chart.update();
+            canvas.style.cursor = 'pointer';
+        } else {
+            var dataset = window.chart.data.datasets[0];
+            dataset.backgroundColor = gradientRed;
+            window.chart.update();
+            canvas.style.cursor = 'default';
+        }
+
+        // Blue chart
+        chart.ctx.beginPath();
+        chart.ctx.moveTo(85, 61);
+        chart.ctx.lineTo(149, 66);
+        chart.ctx.lineTo(224, 63);
+        chart.ctx.lineTo(179, 112);
+        chart.ctx.lineTo(152, 177);
+        chart.ctx.lineTo(121, 117);
+        chart.ctx.fill();
+        chart.ctx.closePath();
+
+        if (chart.ctx.isPointInPath(e.x, e.y)) {
+            var dataset = window.chart.data.datasets[1];
+            dataset.backgroundColor = gradientHoverBlue;
+            window.chart.update();
+            canvas.style.cursor = 'pointer';
+        } else {
+            var dataset = window.chart.data.datasets[1];
+            dataset.backgroundColor = gradientBlue;
+            window.chart.update();
+            canvas.style.cursor = 'default';
+        }
+    }
+});
+
+window.chart = new Chart(document.getElementById("canvas"), {
+    type: "radar",
+    data: {
+        labels: ["STA", "STR", "AGI", "VIT", "CHA", "INT"],
+        datasets: [{
+            label: "Donté Panlin",
+            data: [25, 59, 90, 81, 60, 82],
+            fill: true,
+            backgroundColor: gradientRed,
+            borderColor: 'transparent',
+            pointBackgroundColor: "transparent",
+            pointBorderColor: "transparent",
+            pointHoverBackgroundColor: "transparent",
+            pointHoverBorderColor: "transparent",
+            pointHitRadius: 50,
+        }, {
+            label: "Mireska Sunbreeze",
+            data: [40, 100, 40, 90, 40, 90],
+            fill: true,
+            backgroundColor: gradientBlue,
+            borderColor: "transparent",
+            pointBackgroundColor: "transparent",
+            pointBorderColor: "transparent",
+            pointHoverBackgroundColor: "transparent",
+            pointHoverBorderColor: "transparent",
+            pointHitRadius: 50,
+        }]
+    },
+    options: {
+        legend: {
+            display: false,
+        },
+        tooltips: {
+            enabled: false,
+            custom: function (tooltip) {
+                var tooltipEl = document.getElementById('tooltip');
+                if (tooltip.body) {
+                    tooltipEl.style.display = 'block';
+                    if (tooltip.body[0].lines && tooltip.body[0].lines[0]) {
+                        tooltipEl.innerHTML = tooltip.body[0].lines[0];
+                    }
+                } else {
+                    setTimeout(function () {
+                        tooltipEl.style.display = 'none';
+                    }, 500);
+                }
+            },
+        },
+        gridLines: {
+            display: false
+        },
+        scale: {
+            ticks: {
+                maxTicksLimit: 1,
+                display: false,
+            }
+        }
+    },
+    plugins: [shadowed]
+});
+
+</script>
 </body>
 </html>
