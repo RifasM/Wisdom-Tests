@@ -6,12 +6,13 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <style class="cp-pen-styles">
+    <style>
         @import url('https://fonts.googleapis.com/css?family=Abel');
 
         html, body {
             background: #FCEEB5;
             font-family: Abel, Arial, Verdana, sans-serif;
+            align-content: center;
         }
 
         .center {
@@ -24,8 +25,7 @@
         .fancy-card {
             width: inherit;
             height: 250px;
-            background-color: #fff;
-            background: linear-gradient(#f8f8f8, #fff);
+            background: #fff linear-gradient(#f8f8f8, #fff);
             box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
             border-radius: 6px;
             overflow: hidden;
@@ -52,26 +52,11 @@
         }
 
 
-        .fancy-card:hover .additional {
-            width: 100%;
-            border-radius: 0 5px 5px 0;
-        }
-
         .fancy-card .additional .user-card {
             width: 100%;
             height: 100%;
             position: relative;
             float: left;
-        }
-
-        .fancy-card .additional .user-card::after {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 10%;
-            right: -2px;
-            height: 80%;
-            border-left: 2px solid rgba(0, 0, 0, 0.025);
         }
 
         .fancy-card .additional .user-card .level,
@@ -91,9 +76,6 @@
             top: 85%;
         }
 
-        .fancy-card .additional .user-card svg {
-            top: 50%;
-        }
 
         .fancy-card .additional .more-info {
             width: 100%;
@@ -123,6 +105,7 @@
 
         .fancy-card .additional .coords span + span {
             float: right;
+            margin-right: 2%;
         }
 
         .fancy-card .additional .stats {
@@ -186,74 +169,21 @@
             font-size: 0.9em;
         }
 
-        .table {
-            width: 100%;
-            margin-bottom: 1rem;
-            background-color: transparent;
-        }
-
-        .table th,
-        .table td {
-            padding: 0.75rem;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .table tbody + tbody {
-            border-top: 2px solid #dee2e6;
-        }
-
-        .table .table {
-            background-color: transparent;
-        }
-
-        .table-sm th,
-        .table-sm td {
-            padding: 0.3rem;
-        }
-
-        .table-bordered {
-            border: 1px solid #dee2e6;
-        }
-
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #dee2e6;
-        }
-
-        .table-bordered thead th,
-        .table-bordered thead td {
-            border-bottom-width: 2px;
-        }
-
-        .table-borderless th,
-        .table-borderless td,
-        .table-borderless thead th,
-        .table-borderless tbody + tbody {
-            border: 0;
-        }
-
         img {
             border-radius: 50%;
         }
 
-        canvas {
-
-            width: 50% !important;
-            height: 50% !important;
-
+        .card, .row {
+            margin: 1.5rem;
+            padding: 1%;
         }
+
     </style>
 
 </head>
 <body>
 <div class="row">
-    <div class="col-md-10 fancy-card">
+    <div class="col-md-11 fancy-card" style="background: linear-gradient(#dE685E, #EE786E); width: 90%">
         <div class="additional">
             <div class="user-card">
 
@@ -287,7 +217,7 @@
                     </div>
                     <div>
                         <div class="title">Total Score</div>
-                        <div class="value infinity">{{ total }}</div>
+                        <div class="value infinity">{{ total_score }}</div>
                     </div>
                 </div>
             </div>
@@ -296,7 +226,7 @@
 </div>
 
 <div class="row">
-    <div class="card col-md-11" style="text-align: center;">
+    <div class="col-md-11 card" style="text-align: center;">
         <div class="additional">
 
             <div class="more-info">
@@ -336,11 +266,11 @@
         </div>
     </div>
 </div>
-</div>
 
-<div class="row">
 
-    <div class="card" style="max-width: 500px;">
+<div class="row" style="margin-left: 5%;">
+
+    <div class="card col-md-5">
         <div class="about">
             <h3>Time Spent per question</h3>
 
@@ -349,7 +279,7 @@
         <canvas id="time-chart"></canvas>
     </div>
 
-    <div class="card" style="max-width: 500px;">
+    <div class="card col-md-5">
         <div class="about">
             <h3>Time Spent as a function of Time</h3>
 
@@ -357,8 +287,10 @@
 
         <canvas id="time-spent-chart"></canvas>
     </div>
+</div>
 
-    <div class="card" style="max-width: 500px;">
+<div class="row" style="margin-left: 5%;">
+    <div class="card col-md-5">
         <div class="about">
             <h3>Attempts</h3>
 
@@ -367,73 +299,30 @@
         <canvas id="attempts-chart"></canvas>
     </div>
 
-    <div class="card" style="max-width: 500px;">
+    <div class="card col-md-5">
         <div class="about">
             <h3>Accuracy</h3>
 
         </div>
-
-
-    </div>
-
-    <div class="row">
+        <canvas id="accuracy-chart"></canvas>
 
     </div>
+</div>
 
-    <div class="row">
 
+<div class="row" style="margin-left: 5%;">
 
-        <div class="col-md-5">
-            <div class="about">
-                <h3>Accuracy</h3>
+    <div class="card col-md-5">
+        <div class="about">
+            <h3>Overall</h3>
 
-            </div>
-            <div class="chartjs-size-monitor"
-                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                <div class="chartjs-size-monitor-expand"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:100px;height:100px;left:0;top:0">
-
-                    </div>
-                </div>
-                <div class="chartjs-size-monitor-shrink"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:100%;height:100%;left:0; top:0">
-
-                    </div>
-                </div>
-            </div>
-            <canvas id="accuracy-chart" width="100" height="100" class="chartjs-render-monitor"
-                    style="display: block; height: 263px; width: 526px;"></canvas>
         </div>
 
-        <div class="col-md-5">
-            <div class="about">
-                <h3>Overall</h3>
-
-            </div>
-            <div class="chartjs-size-monitor"
-                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                <div class="chartjs-size-monitor-expand"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:10px;height:10px;left:0;top:0">
-
-                    </div>
-                </div>
-                <div class="chartjs-size-monitor-shrink"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:10%;height:10%;left:0; top:0">
-
-                    </div>
-                </div>
-            </div>
-            <canvas id="overall-chart" width="10" height="10" class="chartjs-render-monitor"
-                    style="display: block; height: 263px; width: 526px;"></canvas>
-        </div>
-
+        <canvas id="overall-chart"></canvas>
     </div>
 
 </div>
+
 
 <script>
 
@@ -451,7 +340,6 @@
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
             legend: {
                 position: 'right',
                 labels: {
