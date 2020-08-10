@@ -37,12 +37,13 @@
     <div class="wrap-contact100">
         <form class="contact100-form validate-form" enctype="multipart/form-data" method="post"
               action="{% url 'home' %}">
+            {% csrf_token %}
             <span class="contact100-form-title">
             Input Your CSV Here
             </span>
             <div class="wrap-input100 validate-input" data-validate="Name is required">
-                <span class="label-input100">Your Name</span>
-                <input class="input100" type="text" name="name" placeholder="Enter your name">
+                <span class="label-input100">Number of questions in this test</span>
+                <input class="input100" type="text" name="q_count" placeholder="Enter Questions per student">
                 <span class="focus-input100"></span>
             </div>
             <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
