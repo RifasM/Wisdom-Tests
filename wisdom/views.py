@@ -3,11 +3,13 @@ import os
 import zipfile
 from io import StringIO
 
+from xhtml2pdf import pisa
 import pdfkit
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template.loader import get_template
+from django.template import Context
+from django.template.loader import get_template, render_to_string
 
 from Wisdom_Tests.settings import MEDIA_ROOT
 
@@ -84,37 +86,50 @@ def home(request):
                 student[row[2]]["total_time"] += int(row[12])
                 student[row[2]]["total_score"] += int(row[19])
 
-        pdf_dir = os.path.join(MEDIA_ROOT, "/temp/")
+        pdf_dir = os.path.join(MEDIA_ROOT, "temp")
 
         for person in student:
+            print(person)
             template = get_template("report.html")
+            # context = Context({'pagesize': 'A4', "data": student[person]})
             html = template.render(student[person])
+            result = StringIO()
+            pdf = pisa.pisaDocument(StringIO(html), dest=result)
+
+            if not pdf.err:
+                with open(os.path.join(pdf_dir, student[person]["student_num"] + "_demo.pdf", "wb")) as f:
+                    f.write(result.getvalue())
+
+        """for person in student:
+            # template = get_template("report.html")
+            html = render_to_string("report.html", student[person])
 
             if not os.path.isdir(pdf_dir):
                 os.mkdir(pdf_dir)
 
             pdfkit.from_string(
-                html, os.path.join(os.path.join(pdf_dir, student[person]["student_num"] + ".pdf")))
+                html, os.path.join(os.path.join(pdf_dir, student[person]["student_num"] + "_demo.pdf")))
 
-        s = StringIO()
+        zip_path = os.path.join(MEDIA_ROOT, "report.zip")
 
-        zf = zipfile.ZipFile(s)
+        zf = zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED)
 
         for path in os.listdir(pdf_dir):
             fdir, fname = os.path.split(path)
             zip_path = os.path.join(pdf_dir, fname)
 
-            zf.write(path, zip_path)
+            zf.write(zip_path)
 
         zf.close()
 
-        resp = HttpResponse(s.getvalue(), mimetype="application/x-zip-compressed")
+        with open(zip_path, "rb") as f:
+            resp = HttpResponse(f, "application/x-zip-compressed")
 
-        resp['Content-Disposition'] = 'attachment; filename=report.zip'
+            resp['Content-Disposition'] = 'attachment; filename=report.zip'
 
-        return resp
+        return resp"""
 
-        # return render(request, "report.html", student.get("32030938"))
+        return render(request, "report.html", student.get("32030938"))
     return render(request, "index.html")
 
 
