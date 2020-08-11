@@ -84,24 +84,25 @@ def home(request):
                 student[row[2]]["total_time"] += int(row[12])
                 student[row[2]]["total_score"] += int(row[19])
 
+        pdf_dir = os.path.join(MEDIA_ROOT, "/temp/")
+
         for person in student:
             template = get_template("report.html")
             html = template.render(student[person])
 
-            if not os.path.isdir(os.path.join(MEDIA_ROOT, "\\temp\\")):
-                os.mkdir(os.path.join("\\temp\\"))
+            if not os.path.isdir(pdf_dir):
+                os.mkdir(pdf_dir)
 
             pdfkit.from_string(
-                html, os.path.join(os.path.join(MEDIA_ROOT,
-                                                "\\temp\\" + student[person]["student_num"] + ".pdf")))
+                html, os.path.join(os.path.join(pdf_dir, student[person]["student_num"] + ".pdf")))
 
         s = StringIO()
 
         zf = zipfile.ZipFile(s)
 
-        for path in os.listdir(os.path.join(MEDIA_ROOT, "\\temp\\")):
+        for path in os.listdir(pdf_dir):
             fdir, fname = os.path.split(path)
-            zip_path = os.path.join(MEDIA_ROOT, "\\temp\\", fname)
+            zip_path = os.path.join(pdf_dir, fname)
 
             zf.write(path, zip_path)
 
