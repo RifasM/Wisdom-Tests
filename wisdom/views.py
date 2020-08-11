@@ -1,14 +1,18 @@
 import csv
 import os
 import zipfile
-from io import StringIO
+from io import StringIO, BytesIO
 
+import weasyprint
 from xhtml2pdf import pisa
 import pdfkit
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import Context
+from weasyprint import HTML, CSS
+from django.template.loader import get_template
+from django.http import HttpResponse
 from django.template.loader import get_template, render_to_string
 
 from Wisdom_Tests.settings import MEDIA_ROOT
@@ -90,15 +94,27 @@ def home(request):
 
         for person in student:
             print(person)
-            template = get_template("report.html")
-            # context = Context({'pagesize': 'A4', "data": student[person]})
-            html = template.render(student[person])
-            result = StringIO()
-            pdf = pisa.pisaDocument(StringIO(html), dest=result)
+            # html_template = get_template("report.html"
+            html = render_to_string("report.html", student[person])
+            # pdf_file = HTML(str(html_template)).write_pdf()
 
-            if not pdf.err:
-                with open(os.path.join(pdf_dir, student[person]["student_num"] + "_demo.pdf", "wb")) as f:
-                    f.write(result.getvalue())
+            html_path = os.path.join(pdf_dir, student[person]["student_num"] + "_demo.html")
+            pdf_path = os.path.join(pdf_dir, student[person]["student_num"] + "_demo.pdf")
+
+            with open(html_path, "wb") as f:
+
+                f.write(str(html).encode("utf-8"))
+                print('http://' + request.get_host() +
+                                      "/media/temp/" +
+                                      student[person]["student_num"] +
+                                      "_demo.html")
+                with open(pdf_path, "wb") as p:
+                    pisa_status = pisa.CreatePDF(
+                        str(html).encode("utf-8"),
+                        dest=p)
+
+                # os.system("wkhtmltopdf --javascript-delay 1000 {} {}".format(html_path, pdf_path))
+                # os.remove(html_path)
 
         """for person in student:
             # template = get_template("report.html")
