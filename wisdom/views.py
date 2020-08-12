@@ -1,19 +1,11 @@
 import csv
 import os
-import zipfile
-from io import StringIO, BytesIO
+from io import StringIO
 
-import weasyprint
-from xhtml2pdf import pisa
-import pdfkit
 from django.contrib import messages
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import Context
-from weasyprint import HTML, CSS
-from django.template.loader import get_template
-from django.http import HttpResponse
-from django.template.loader import get_template, render_to_string
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
 
 from Wisdom_Tests.settings import MEDIA_ROOT
 
@@ -39,6 +31,7 @@ def home(request):
             if row[2] not in student:
                 student[row[2]] = {
                     "student_num": row[0],
+                    "student_picture": os.path.join(MEDIA_ROOT, "Pics/{}.jpg".format(row[0])),
                     "name": row[1],
                     "registration": row[2],
                     "grade": row[3],
@@ -105,13 +98,20 @@ def home(request):
 
                 f.write(str(html).encode("utf-8"))
                 print('http://' + request.get_host() +
-                                      "/media/temp/" +
-                                      student[person]["student_num"] +
-                                      "_demo.html")
+                      "/media/temp/" +
+                      student[person]["student_num"] +
+                      "_demo.html")
+
                 with open(pdf_path, "wb") as p:
                     pisa_status = pisa.CreatePDF(
                         str(html).encode("utf-8"),
                         dest=p)
+
+                if not os.path.isdir(pdf_dir):
+                    os.mkdir(pdf_dir)
+
+                """pdfkit.from_file(
+                    html_path, pdf_path)"""
 
                 # os.system("wkhtmltopdf --javascript-delay 1000 {} {}".format(html_path, pdf_path))
                 # os.remove(html_path)
